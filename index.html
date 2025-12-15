@@ -1,119 +1,94 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="ko">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2685.2">
-  <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
-    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>YUJIWA Official</title>
+    <style>
+        /* 1. 배경 스타일: PC에서 고급스러운 느낌을 주도록 설정 */
+        body, html {
+            margin: 0; padding: 0;
+            width: 100%; height: 100%;
+            background-color: #121212; /* 배경색: 어두운 다크 그레이 */
+            display: flex; justify-content: center; align-items: center;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            overflow: hidden; /* 스크롤바 제거 */
+        }
+
+        /* 2. PC 접속 시 보일 '스마트폰 모양' 틀 */
+        #phone-case {
+            display: none; /* 기본은 숨김 (JS가 PC라고 판단하면 킴) */
+            width: 375px; 
+            height: 812px;
+            
+            /* 반응형 줌: 화면이 작으면 폰 크기도 줄어듦 */
+            max-width: 100vw; max-height: 90vh;
+            
+            background: #000;
+            border-radius: 40px; /* 둥근 모서리 */
+            box-shadow: 0 0 50px rgba(255, 255, 255, 0.1); /* 빛나는 그림자 효과 */
+            border: 12px solid #333; /* 베젤 */
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* 3. 실제 사이트가 담길 Iframe */
+        iframe {
+            width: 100%; 
+            height: 100%;
+            border: none;
+            background: white;
+            
+            /* 핵심: PC 뷰가 강제로 뜨더라도 모바일 폭에 맞게 축소 */
+            /* Wix가 반응형이라 이 사이즈에 맞춰 렌더링될 확률 높음 */
+        }
+
+        /* 4. 로딩 텍스트 스타일 */
+        #redirect-msg {
+            color: white; font-size: 14px; position: absolute;
+            top: 50%; left: 50%; transform: translate(-50%, -50%);
+            display: none;
+        }
+    </style>
+
+    <script type="text/javascript">
+        // ▼▼ 연결할 실제 링크 ▼▼
+        var targetUrl = "https://litt.ly/yujiwa";
+
+        // 기기 정밀 판독기 (통역가 역할)
+        function checkDevice() {
+            var ua = navigator.userAgent;
+            // 모바일 키워드 검사
+            var isMobileIP = /iPhone|iPad|iPod|Android/i.test(ua);
+            // 터치 가능 여부 + 화면 너비 검사 (태블릿 포함)
+            var isSmallScreen = (window.innerWidth <= 768) || (navigator.maxTouchPoints > 1 && window.innerWidth < 1000);
+            
+            return isMobileIP || isSmallScreen;
+        }
+
+        window.onload = function() {
+            if (checkDevice()) {
+                // [CASE 1] 모바일이다 -> 즉시 이동
+                document.getElementById('redirect-msg').style.display = 'block';
+                // replace를 써서 '뒤로가기' 눌렀을 때 루프에 갇히지 않게 함
+                window.location.replace(targetUrl);
+            } else {
+                // [CASE 2] PC다 -> 스마트폰 틀(Iframe) 가동
+                var phone = document.getElementById('phone-case');
+                var frame = document.getElementById('content-frame');
+                
+                phone.style.display = 'block';
+                frame.src = targetUrl;
+            }
+        };
+    </script>
 </head>
 <body>
-<p class="p1">&lt;!DOCTYPE html&gt;</p>
-<p class="p1">&lt;html lang="ko"&gt;</p>
-<p class="p1">&lt;head&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta charset="UTF-8"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;title&gt;Landing Page&lt;/title&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;style&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>/* 기본 스타일 초기화 */</p>
-<p class="p1"><span class="Apple-converted-space">        </span>body, html {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin: 0; padding: 0;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>width: 100%; height: 100%;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background-color: #f0f2f5; /* PC 배경색 */</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>overflow: hidden; /* PC에서 스크롤바 숨김 */</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>/* 로딩 중 안내 메시지 스타일 */</p>
-<p class="p1"><span class="Apple-converted-space">        </span>#loading {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>position: absolute; top: 50%; left: 50%;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>transform: translate(-50%, -50%);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-size: 14px; color: #666;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>display: none; /* 기본은 숨김 */</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>/* PC 화면 중앙에 뜰 스마트폰 모양 컨테이너 */</p>
-<p class="p1"><span class="Apple-converted-space">        </span>#mobile-frame-container {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>display: none; /* 자바스크립트가 PC라고 판단하기 전까지 숨김 */</p>
-<p class="p1"><span class="Apple-converted-space">            </span>width: 375px; /* 아이폰 표준 너비 */</p>
-<p class="p1"><span class="Apple-converted-space">            </span>height: 812px; /* 아이폰 표준 높이 */</p>
-<p class="p1"><span class="Apple-converted-space">            </span>max-height: 90vh; /* 화면 높이의 90%를 넘지 않게 */</p>
-<p class="p1"><span class="Apple-converted-space">            </span>position: absolute;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>top: 50%; left: 50%;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>transform: translate(-50%, -50%);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background: white;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 30px; /* 둥근 모서리 */</p>
-<p class="p1"><span class="Apple-converted-space">            </span>box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); /* 그림자 */</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border: 8px solid #1a1a1a; /* 진한 회색 베젤 */</p>
-<p class="p1"><span class="Apple-converted-space">            </span>overflow: hidden;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>z-index: 10;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>/* 실제 윅스 사이트가 들어갈 iframe */</p>
-<p class="p1"><span class="Apple-converted-space">        </span>iframe {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>width: 100%; height: 100%;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border: none;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background: white;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/style&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;script type="text/javascript"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>// ▼▼▼ 여기에 본인의 윅스 모바일 페이지 주소를 넣으세요 ▼▼▼</p>
-<p class="p1"><span class="Apple-converted-space">        </span>var destinationUrl = "https://litt.ly/yujiwa";<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>// ▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>// 정밀 기기 판별 함수</p>
-<p class="p1"><span class="Apple-converted-space">        </span>function detectDevice() {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>var ua = navigator.userAgent || navigator.vendor || window.opera;</p>
-<p class="p2"><span class="Apple-converted-space">            </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>// 1. 모바일 OS 정규식 체크 (Android, iOS 등)</p>
-<p class="p1"><span class="Apple-converted-space">            </span>var isMobileOS = /android|avantgo|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od|ad)|iris|kindle|lge |maemo|midp|mmp|mobile|o2|opera m(ob|in)i|palm( os)?|p(ixi|re)\/|plucker|pocket|psp|smartphone|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino/i.test(ua);</p>
-<p class="p2"><span class="Apple-converted-space">            </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>// 2. 터치 포인트 체크 (아이패드 등 태블릿 대응)</p>
-<p class="p1"><span class="Apple-converted-space">            </span>var isTouch = (navigator.maxTouchPoints &amp;&amp; navigator.maxTouchPoints &gt; 2);</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>// 최종 판단: 모바일 OS이거나, 터치 기반이면서 화면이 좁은 경우</p>
-<p class="p1"><span class="Apple-converted-space">            </span>// (화면 너비 768px 이하는 모바일로 간주)</p>
-<p class="p1"><span class="Apple-converted-space">            </span>var isMobileView = isMobileOS || (isTouch &amp;&amp; window.innerWidth &lt;= 768);</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>return isMobileView;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>// 실행 로직</p>
-<p class="p1"><span class="Apple-converted-space">        </span>window.onload = function() {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>var isMobile = detectDevice();</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>if (isMobile) {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>// [모바일 접속] -&gt; 즉시 리다이렉트</p>
-<p class="p1"><span class="Apple-converted-space">                </span>document.getElementById('loading').style.display = 'block';</p>
-<p class="p1"><span class="Apple-converted-space">                </span>document.getElementById('loading').innerText = '모바일 페이지로 이동 중...';</p>
-<p class="p2"><span class="Apple-converted-space">                </span></p>
-<p class="p1"><span class="Apple-converted-space">                </span>// 히스토리를 남기지 않고 교체 (뒤로가기 시 루프 방지)</p>
-<p class="p1"><span class="Apple-converted-space">                </span>window.location.replace(destinationUrl);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>} else {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>// [PC 접속] -&gt; iframe 컨테이너 활성화</p>
-<p class="p1"><span class="Apple-converted-space">                </span>var container = document.getElementById('mobile-frame-container');</p>
-<p class="p1"><span class="Apple-converted-space">                </span>var frame = document.getElementById('content-frame');</p>
-<p class="p2"><span class="Apple-converted-space">                </span></p>
-<p class="p1"><span class="Apple-converted-space">                </span>container.style.display = 'block'; // 박스 보이기</p>
-<p class="p1"><span class="Apple-converted-space">                </span>frame.src = destinationUrl; // iframe에 주소 주입</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>};</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/script&gt;</p>
-<p class="p1">&lt;/head&gt;</p>
-<p class="p1">&lt;body&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- 로딩 텍스트 --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div id="loading"&gt;Loading...&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- PC용 가상 스마트폰 프레임 --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div id="mobile-frame-container"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;iframe id="content-frame" title="Mobile Site View" allow="autoplay; encrypted-media"&gt;&lt;/iframe&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p1">&lt;/body&gt;</p>
-<p class="p1">&lt;/html&gt;</p>
+    <div id="redirect-msg">모바일 페이지로 이동합니다...</div>
+
+    <!-- PC 사용자용 가상 스마트폰 -->
+    <div id="phone-case">
+        <iframe id="content-frame" title="Mobile View"></iframe>
+    </div>
 </body>
 </html>
