@@ -2,42 +2,65 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <!-- 검색 엔진이나 카톡 공유 시 보일 제목 -->
     <title>Sound360 Promotion</title>
-    
-    <!-- 스타일 정의 전에 스크립트 먼저 배치 (속도 최우선) -->
+
+    <!-- [1. 초고속 납치 스크립트] -->
+    <!-- 화면이 그려지기도 전에 실행되어 모바일 유저를 즉시 보냄 -->
     <script type="text/javascript">
-        // 1. 설정
-        var realUrl = "https://www.sound360promotion.com/";
-        // PC에서 모바일 뷰를 보여줄 우회 주소 (Responsinator 활용)
-        var bypassUrl = "https://www.responsinator.com/?url=" + encodeURIComponent(realUrl);
+        (function() {
+            // ▼▼▼ 여기에 실제 이동할 사이트 주소 입력 ▼▼▼
+            var targetUrl = "https://www.sound360promotion.com/";
+            
+            // 모바일 기기 판단 로직 (아이폰, 안드로이드, 태블릿)
+            var userAgent = navigator.userAgent;
+            var isMobile = /iPhone|iPad|iPod|Android/i.test(userAgent) || (navigator.maxTouchPoints > 1 && window.innerWidth < 1000);
 
-        // 2. 초고속 판별 (함수 선언 없이 바로 실행)
-        var ua = navigator.userAgent;
-        var isMobile = /iPhone|iPad|iPod|Android/i.test(ua) || (navigator.maxTouchPoints > 1 && window.innerWidth < 1000);
-
-        // 3. 즉시 이동 (Body 로딩 대기 안 함)
-        if (isMobile) {
-            // 모바일 -> 원본 사이트로 납치 (뒤로가기 방지 replace 사용)
-            window.location.replace(realUrl);
-        }
-        // PC일 경우에만 아래 HTML 렌더링 시작
+            if (isMobile) {
+                // 모바일이면 묻지도 따지지도 않고 바로 이동 (뒤로가기 루프 방지 replace 사용)
+                window.location.replace(targetUrl);
+            }
+        })();
     </script>
 
     <style>
-        body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background: #121212; }
-        iframe { width: 100%; height: 100%; border: none; }
+        /* PC 화면 스타일 (다크 모드, 스크롤 숨김) */
+        body, html {
+            margin: 0; padding: 0;
+            width: 100%; height: 100%;
+            overflow: hidden;
+            background-color: #1a1a1a;
+            font-family: sans-serif;
+            display: flex; justify-content: center; align-items: center;
+        }
+
+        /* PC에서 보여줄 폰 뷰어 (Iframe) */
+        iframe#pc-viewer {
+            width: 100%; height: 100%;
+            border: none;
+            display: none; /* 로딩 전엔 숨김 */
+        }
     </style>
 </head>
 <body>
-    <!-- PC 접속자만 이 줄을 읽게 됨 (모바일은 이미 떠남) -->
-    <iframe id="pc-viewer" title="Mobile Simulator"></iframe>
+    <!-- [2. PC 사용자용 화면] -->
+    <!-- 모바일 유저는 이미 떠났으므로 이 아래는 PC 유저만 보게 됨 -->
+    <iframe id="pc-viewer" title="Mobile View Simulator"></iframe>
 
     <script>
-        // PC일 때만 Iframe에 주소 넣기 (모바일은 이미 떠나서 실행 안 됨)
-        if (!isMobile) {
-            document.getElementById('pc-viewer').src = bypassUrl;
-        }
+        // PC 화면 로딩 로직
+        // 위에서 모바일이 아님을 확인했으므로, PC용 우회 뷰어를 실행함
+        
+        var realUrl = "https://www.sound360promotion.com/";
+        
+        // [핵심 전략] Responsinator 서비스를 경유하여
+        // PC 브라우저에서도 강제로 '아이폰 화면'을 렌더링해서 보여줌
+        var bypassUrl = "https://www.responsinator.com/?url=" + encodeURIComponent(realUrl);
+        
+        var frame = document.getElementById('pc-viewer');
+        frame.src = bypassUrl;
+        frame.style.display = "block";
     </script>
 </body>
 </html>
