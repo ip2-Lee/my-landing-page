@@ -3,64 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <!-- 검색 엔진이나 카톡 공유 시 보일 제목 -->
     <title>Sound360 Promotion</title>
-
-    <!-- [1. 초고속 납치 스크립트] -->
-    <!-- 화면이 그려지기도 전에 실행되어 모바일 유저를 즉시 보냄 -->
+    
+    <!-- [1] 모바일 납치 (가장 빠름) -->
     <script type="text/javascript">
         (function() {
-            // ▼▼▼ 여기에 실제 이동할 사이트 주소 입력 ▼▼▼
             var targetUrl = "https://www.sound360promotion.com/";
+            var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || (navigator.maxTouchPoints > 1 && window.innerWidth < 1000);
             
-            // 모바일 기기 판단 로직 (아이폰, 안드로이드, 태블릿)
-            var userAgent = navigator.userAgent;
-            var isMobile = /iPhone|iPad|iPod|Android/i.test(userAgent) || (navigator.maxTouchPoints > 1 && window.innerWidth < 1000);
-
+            // 모바일이면, Wix가 모바일 뷰를 확실히 주도록 파라미터 추가해서 이동
             if (isMobile) {
-                // 모바일이면 묻지도 따지지도 않고 바로 이동 (뒤로가기 루프 방지 replace 사용)
-                window.location.replace(targetUrl);
+                window.location.replace(targetUrl + "?showMobileView=true");
             }
         })();
     </script>
 
     <style>
-        /* PC 화면 스타일 (다크 모드, 스크롤 숨김) */
         body, html {
             margin: 0; padding: 0;
             width: 100%; height: 100%;
             overflow: hidden;
             background-color: #1a1a1a;
-            font-family: sans-serif;
             display: flex; justify-content: center; align-items: center;
         }
 
-        /* PC에서 보여줄 폰 뷰어 (Iframe) */
-        iframe#pc-viewer {
+        /* [2] 폰 프레임 디자인 */
+        #phone-frame {
+            width: 375px; height: 812px;
+            max-width: 100vw; max-height: 90vh;
+            border: 14px solid #000;
+            border-radius: 40px;
+            background: #fff;
+            box-shadow: 0 0 40px rgba(0,0,0,0.5);
+            overflow: hidden;
+            position: relative;
+        }
+
+        iframe {
             width: 100%; height: 100%;
             border: none;
-            display: none; /* 로딩 전엔 숨김 */
+            /* 중요: 스크롤바 숨기기 */
+            display: block;
         }
     </style>
 </head>
 <body>
-    <!-- [2. PC 사용자용 화면] -->
-    <!-- 모바일 유저는 이미 떠났으므로 이 아래는 PC 유저만 보게 됨 -->
-    <iframe id="pc-viewer" title="Mobile View Simulator"></iframe>
+    <!-- [3] PC 유저용 가상 모바일 -->
+    <div id="phone-frame">
+        <!-- 
+           src에 파라미터를 추가하여 Wix에게 힌트를 줌
+           rel=nofollow 등을 추가해 크롤러 방지
+        -->
+        <iframe id="wix-frame" title="Mobile View"></iframe>
+    </div>
 
     <script>
-        // PC 화면 로딩 로직
-        // 위에서 모바일이 아님을 확인했으므로, PC용 우회 뷰어를 실행함
-        
+        // PC 화면 로딩 시 실행
         var realUrl = "https://www.sound360promotion.com/";
         
-        // [핵심 전략] Responsinator 서비스를 경유하여
-        // PC 브라우저에서도 강제로 '아이폰 화면'을 렌더링해서 보여줌
-        var bypassUrl = "https://www.responsinator.com/?url=" + encodeURIComponent(realUrl);
+        // Wix가 반응할 수 있는 모바일 파라미터 조합
+        var wixMobileUrl = realUrl + "?showMobileView=true&deviceType=mobile";
         
-        var frame = document.getElementById('pc-viewer');
-        frame.src = bypassUrl;
-        frame.style.display = "block";
+        document.getElementById('wix-frame').src = wixMobileUrl;
     </script>
 </body>
 </html>
