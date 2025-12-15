@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2685.2">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+  </style>
+</head>
+<body>
+<p class="p1">&lt;!DOCTYPE html&gt;</p>
+<p class="p1">&lt;html lang="ko"&gt;</p>
+<p class="p1">&lt;head&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta charset="UTF-8"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;title&gt;Landing Page&lt;/title&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;style&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>/* 기본 스타일 초기화 */</p>
+<p class="p1"><span class="Apple-converted-space">        </span>body, html {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin: 0; padding: 0;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>width: 100%; height: 100%;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background-color: #f0f2f5; /* PC 배경색 */</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>overflow: hidden; /* PC에서 스크롤바 숨김 */</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>/* 로딩 중 안내 메시지 스타일 */</p>
+<p class="p1"><span class="Apple-converted-space">        </span>#loading {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>position: absolute; top: 50%; left: 50%;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>transform: translate(-50%, -50%);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 14px; color: #666;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: none; /* 기본은 숨김 */</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>/* PC 화면 중앙에 뜰 스마트폰 모양 컨테이너 */</p>
+<p class="p1"><span class="Apple-converted-space">        </span>#mobile-frame-container {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: none; /* 자바스크립트가 PC라고 판단하기 전까지 숨김 */</p>
+<p class="p1"><span class="Apple-converted-space">            </span>width: 375px; /* 아이폰 표준 너비 */</p>
+<p class="p1"><span class="Apple-converted-space">            </span>height: 812px; /* 아이폰 표준 높이 */</p>
+<p class="p1"><span class="Apple-converted-space">            </span>max-height: 90vh; /* 화면 높이의 90%를 넘지 않게 */</p>
+<p class="p1"><span class="Apple-converted-space">            </span>position: absolute;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>top: 50%; left: 50%;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>transform: translate(-50%, -50%);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: white;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 30px; /* 둥근 모서리 */</p>
+<p class="p1"><span class="Apple-converted-space">            </span>box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); /* 그림자 */</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border: 8px solid #1a1a1a; /* 진한 회색 베젤 */</p>
+<p class="p1"><span class="Apple-converted-space">            </span>overflow: hidden;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>z-index: 10;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>/* 실제 윅스 사이트가 들어갈 iframe */</p>
+<p class="p1"><span class="Apple-converted-space">        </span>iframe {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>width: 100%; height: 100%;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border: none;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: white;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/style&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;script type="text/javascript"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>// ▼▼▼ 여기에 본인의 윅스 모바일 페이지 주소를 넣으세요 ▼▼▼</p>
+<p class="p1"><span class="Apple-converted-space">        </span>var destinationUrl = "https://www.mysite.com";<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// ▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// 정밀 기기 판별 함수</p>
+<p class="p1"><span class="Apple-converted-space">        </span>function detectDevice() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>var ua = navigator.userAgent || navigator.vendor || window.opera;</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// 1. 모바일 OS 정규식 체크 (Android, iOS 등)</p>
+<p class="p1"><span class="Apple-converted-space">            </span>var isMobileOS = /android|avantgo|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od|ad)|iris|kindle|lge |maemo|midp|mmp|mobile|o2|opera m(ob|in)i|palm( os)?|p(ixi|re)\/|plucker|pocket|psp|smartphone|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino/i.test(ua);</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// 2. 터치 포인트 체크 (아이패드 등 태블릿 대응)</p>
+<p class="p1"><span class="Apple-converted-space">            </span>var isTouch = (navigator.maxTouchPoints &amp;&amp; navigator.maxTouchPoints &gt; 2);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// 최종 판단: 모바일 OS이거나, 터치 기반이면서 화면이 좁은 경우</p>
+<p class="p1"><span class="Apple-converted-space">            </span>// (화면 너비 768px 이하는 모바일로 간주)</p>
+<p class="p1"><span class="Apple-converted-space">            </span>var isMobileView = isMobileOS || (isTouch &amp;&amp; window.innerWidth &lt;= 768);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>return isMobileView;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// 실행 로직</p>
+<p class="p1"><span class="Apple-converted-space">        </span>window.onload = function() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>var isMobile = detectDevice();</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (isMobile) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>// [모바일 접속] -&gt; 즉시 리다이렉트</p>
+<p class="p1"><span class="Apple-converted-space">                </span>document.getElementById('loading').style.display = 'block';</p>
+<p class="p1"><span class="Apple-converted-space">                </span>document.getElementById('loading').innerText = '모바일 페이지로 이동 중...';</p>
+<p class="p2"><span class="Apple-converted-space">                </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>// 히스토리를 남기지 않고 교체 (뒤로가기 시 루프 방지)</p>
+<p class="p1"><span class="Apple-converted-space">                </span>window.location.replace(destinationUrl);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>} else {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>// [PC 접속] -&gt; iframe 컨테이너 활성화</p>
+<p class="p1"><span class="Apple-converted-space">                </span>var container = document.getElementById('mobile-frame-container');</p>
+<p class="p1"><span class="Apple-converted-space">                </span>var frame = document.getElementById('content-frame');</p>
+<p class="p2"><span class="Apple-converted-space">                </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>container.style.display = 'block'; // 박스 보이기</p>
+<p class="p1"><span class="Apple-converted-space">                </span>frame.src = destinationUrl; // iframe에 주소 주입</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>};</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/script&gt;</p>
+<p class="p1">&lt;/head&gt;</p>
+<p class="p1">&lt;body&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- 로딩 텍스트 --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div id="loading"&gt;Loading...&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- PC용 가상 스마트폰 프레임 --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div id="mobile-frame-container"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;iframe id="content-frame" title="Mobile Site View" allow="autoplay; encrypted-media"&gt;&lt;/iframe&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1">&lt;/body&gt;</p>
+<p class="p1">&lt;/html&gt;</p>
+</body>
+</html>
