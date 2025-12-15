@@ -3,104 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <!-- 요청하신 타이틀 적용 -->
     <title>Sound360 Promotion</title>
     <style>
-        /* [PC용 디자인] 고급스러운 다크 모드 배경 및 중앙 정렬 */
         body, html {
-            margin: 0; padding: 0;
-            width: 100%; height: 100%;
-            background-color: #121212; /* 배경색: 아주 진한 회색 */
-            display: flex; justify-content: center; align-items: center;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            overflow: hidden; /* PC 스크롤바 제거 */
-        }
-
-        /* [스마트폰 컨테이너] PC 화면 한가운데 뜰 가상의 폰 화면 */
-        #phone-case {
-            display: none; /* JS가 PC라고 판단하기 전엔 안 보임 */
-            width: 375px; 
-            height: 812px;
-            
-            /* 화면이 작을 경우 자동으로 크기 조절 (반응형) */
-            max-width: 100vw; 
-            max-height: 90vh;
-            
-            background: #000;
-            border-radius: 40px; /* 아이폰 같은 둥근 모서리 */
-            box-shadow: 0 0 50px rgba(255, 255, 255, 0.05); /* 은은한 후광 효과 */
-            border: 10px solid #2a2a2a; /* 폰 테두리(베젤) */
-            position: relative;
+            margin: 0; padding: 0; width: 100%; height: 100%;
+            background-color: #121212; /* PC 배경: 다크 */
             overflow: hidden;
-            z-index: 10;
         }
 
-        /* [내용물] 실제 사이트 표시 */
-        iframe {
-            width: 100%; 
-            height: 100%;
-            border: none;
-            background: white; /* 사이트 로딩 전 흰 배경 */
+        /* PC용 Iframe (화면 전체를 채움) */
+        #pc-viewer {
+            width: 100%; height: 100%; border: none;
+            display: none; /* 기본 숨김 */
         }
 
-        /* [모바일 안내 메시지] 리다이렉트 중 잠깐 보일 텍스트 */
+        /* 로딩 텍스트 */
         #redirect-msg {
-            color: #888; 
-            font-size: 14px; 
-            position: absolute;
-            top: 50%; left: 50%; 
-            transform: translate(-50%, -50%);
-            display: none;
-            text-align: center;
+            color: #fff; font-family: sans-serif;
+            position: absolute; top: 50%; left: 50%;
+            transform: translate(-50%, -50%); text-align: center;
         }
     </style>
 
     <script type="text/javascript">
-        // ▼▼▼ 요청하신 실제 웹 링크 ▼▼▼
+        // ▼▼▼ 진짜 사이트 주소 ▼▼▼
         var realUrl = "https://www.sound360promotion.com/";
         
-        // PC 접속 시 Iframe에 적용할 링크 (필요 시 모바일 강제 파라미터 추가 가능)
-        // 대부분의 경우 원본 링크만으로도 Iframe 크기(375px) 덕분에 모바일 뷰로 뜸
-        var iframeUrl = realUrl; 
+        // [우회 전략] Responsinator 서비스를 통해 내 사이트를 '모바일인 척' 보여줌
+        // 아이폰X 사이즈 강제 뷰 URL 생성
+        var bypassUrl = "https://www.responsinator.com/?url=" + encodeURIComponent(realUrl);
 
-        // [기기 판독기] - 모바일인지 PC인지 확실하게 구분
         function checkDevice() {
             var ua = navigator.userAgent;
-            // 1. 모바일 OS 키워드 (아이폰, 갤럭시 등)
-            var isMobileOS = /iPhone|iPad|iPod|Android/i.test(ua);
-            // 2. 화면 크기 및 터치 여부 (태블릿 포함)
-            var isSmallScreen = (window.innerWidth <= 768) || (navigator.maxTouchPoints > 1 && window.innerWidth < 1000);
-            
-            return isMobileOS || isSmallScreen;
+            var isMobile = /iPhone|iPad|iPod|Android/i.test(ua) || (navigator.maxTouchPoints > 1 && window.innerWidth < 1000);
+            return isMobile;
         }
 
-        // [실행 로직] 페이지 로딩 즉시 실행
         window.onload = function() {
             if (checkDevice()) {
-                // CASE 1: 모바일 접속 -> "진짜 사이트로 납치(이동)"
-                // 모바일 브라우저 자체로 접속하므로 100% 모바일 뷰 보장
-                document.getElementById('redirect-msg').style.display = 'block';
+                // [1] 모바일 유저 -> 진짜 사이트로 직행
+                document.getElementById('redirect-msg').innerHTML = "페이지로 이동 중...";
                 window.location.replace(realUrl);
             } else {
-                // CASE 2: PC 접속 -> "가두리 양식장(Iframe) 가동"
-                // 375px 너비의 상자 안에 사이트를 띄워 강제로 모바일 레이아웃 형성
-                var phone = document.getElementById('phone-case');
-                var frame = document.getElementById('content-frame');
+                // [2] PC 유저 -> 우회 서비스(Responsinator)를 통해 보여줌
+                // 이 툴은 PC 브라우저에서도 강제로 모바일 뷰를 렌더링해 줌
+                var frame = document.getElementById('pc-viewer');
                 
-                phone.style.display = 'block';
-                frame.src = iframeUrl;
+                // Responsinator 화면에서 불필요한 스크롤바 등을 가리기 위해 스타일 조정 가능하지만
+                // 우선 확실한 모바일 뷰 확인을 위해 전체 로딩
+                frame.src = bypassUrl; 
+                frame.style.display = "block";
+                
+                // 안내 메시지 숨김
+                document.getElementById('redirect-msg').style.display = 'none';
             }
         };
     </script>
 </head>
 <body>
-    <!-- 모바일 접속 시 잠깐 스쳐가는 메시지 -->
-    <div id="redirect-msg">Sound360 Promotion<br>페이지로 이동 중...</div>
-
-    <!-- PC 접속 시 뜨는 가상 스마트폰 창 -->
-    <div id="phone-case">
-        <iframe id="content-frame" title="Sound360 Mobile View"></iframe>
-    </div>
+    <div id="redirect-msg">Loading...</div>
+    <iframe id="pc-viewer" title="Mobile Simulator"></iframe>
 </body>
 </html>
-
